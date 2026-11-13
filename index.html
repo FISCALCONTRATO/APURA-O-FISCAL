@@ -1801,13 +1801,17 @@ const SB = {
   },
 
   // ---------------------------------------------------------------- documentos
+  /** o Postgres (jsonb) não aceita o caractere nulo \u0000 em textos; vem às vezes de PDF/SPED — é removido */
+  _limpo(data) { return JSON.parse(JSON.stringify(data, (k, v) => typeof v === 'string' && v.indexOf('\u0000') >= 0 ? v.replace(/\u0000/g, '') : v)); },
+  /** JSON para o Postgres: o tipo jsonb não aceita o caractere nulo (\u0000), que aparece em trechos binários (ex.: assinatura digital do SPED) */
+  json(v) { return JSON.stringify(v).replace(/(?<!\\)((?:\\\\)*)\\u0000/g, '$1'); },
   _coll(path) { const i = path.lastIndexOf('/'); return i < 0 ? '' : path.slice(0, i); },
   async get(path) {
     const r = await this.req('/rest/v1/app_docs?select=data&path=eq.' + encodeURIComponent(path) + '&limit=1');
     const j = await r.json(); return j.length ? j[0].data : null;
   },
   async set(path, data) {
-    await this.req('/rest/v1/app_docs?on_conflict=owner,path', { method: 'POST', headers: { 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal' }, body: JSON.stringify({ owner: this.uid(), path, coll: this._coll(path), data: JSON.parse(JSON.stringify(data)), updated_by: this.email || null }) });
+    await this.req('/rest/v1/app_docs?on_conflict=owner,path', { method: 'POST', headers: { 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal' }, body: JSON.stringify({ owner: this.uid(), path, coll: this._coll(path), data: this._limpo(data), updated_by: this.email || null }) });
   },
   async del(path) { await this.req('/rest/v1/app_docs?path=eq.' + encodeURIComponent(path), { method: 'DELETE', headers: { Prefer: 'return=minimal' } }); },
   async list(coll) {
@@ -5087,12 +5091,12 @@ Object.assign(App, {
 Object.assign(SB, {
   async setMany(rows) {
     let lote = [], tam = 0;
-    const envia = async () => { if (!lote.length) return; await this.req('/rest/v1/app_docs?on_conflict=owner,path', { method: 'POST', headers: { 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal' }, body: JSON.stringify(lote) }); lote = []; tam = 0; };
+    const envia = async () => { if (!lote.length) return; await this.req('/rest/v1/app_docs?on_conflict=owner,path', { method: 'POST', headers: { 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal' }, body: '[' + lote.join(',') + ']' }); lote = []; tam = 0; };
     for (const r of rows) {
-      const row = { owner: this.uid(), path: r.path, coll: this._coll(r.path), data: r.data, updated_by: this.email || null };
-      const s = JSON.stringify(row).length;
+      const row = { owner: this.uid(), path: r.path, coll: this._coll(r.path), data: this._limpo(r.data), updated_by: this.email || null };
+      const j = this.json(row); const s = j.length;
       if (tam + s > 900000) await envia();
-      lote.push(row); tam += s;
+      lote.push(j); tam += s;
     }
     await envia();
   },
