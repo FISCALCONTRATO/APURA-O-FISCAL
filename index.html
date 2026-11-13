@@ -3,7 +3,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
 /* Layout: trilho lateral de navegação + área de trabalho com cabeçalho de contexto (empresa · competência).
    Tons neutros puxados para o verde-petróleo; cor de destaque = petróleo; cores de série: SPED azul, Livro laranja, XML água. */
@@ -14,8 +14,8 @@
   --s-sped: #2a78d6; --s-livro: #eb6834; --s-xml: #1baf7a; --deb: #eb6834; --cred: #2a78d6;
   --crit: #c22b2b; --crit-bg: #fbe9e8; --alto: #c2560a; --alto-bg: #fcefe3; --medio: #9a7400; --medio-bg: #faf3d9; --baixo: #56635f; --baixo-bg: #edf1ef; --pend: #5a49c9; --pend-bg: #eeebfb; --ok: #18794e; --ok-bg: #e3f4ea;
   --shadow: 0 1px 2px rgba(19, 32, 29, .06), 0 6px 18px rgba(19, 32, 29, .05);
-  --f-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --f-cond: 'IBM Plex Sans Condensed', 'IBM Plex Sans', 'Arial Narrow', system-ui, sans-serif;
+  --f-sans: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --f-cond: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --f-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --r: 10px; --r-sm: 6px;
 }
@@ -282,12 +282,52 @@ textarea.inp { width: 100%; min-height: 70px; resize: vertical; }
 .obtbl td.c, .obtbl th.c, .tbl th.c, .tbl td.c { text-align: center; }
 .sb-login { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: var(--bg); padding: env(safe-area-inset-top, 0px) max(16px, env(safe-area-inset-right, 0px)) env(safe-area-inset-bottom, 0px) max(16px, env(safe-area-inset-left, 0px)); }
 .sb-card { width: min(380px, 100%); padding: 24px; }
-.sb-logo { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+.sb-logo-old { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); font-weight: 700; }
 .sb-msg { margin: 12px 0 0; padding: 8px 10px; border-radius: 8px; background: var(--crit-bg); color: var(--crit); font-size: 13px; }
 .sb-tabs { display: flex; gap: 4px; margin-top: 18px; padding: 3px; border-radius: 10px; background: var(--bg); border: 1px solid var(--line); }
 .sb-tabs button { flex: 1; border: 0; background: transparent; padding: 7px 10px; border-radius: 8px; font: inherit; font-weight: 600; color: var(--ink-3); cursor: pointer; }
 .sb-tabs button.on { background: var(--surface, var(--bg)); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
 .sb-msg.ok { background: var(--ok-bg); color: var(--ok); }
+
+/* ---------- aparência: marca, menu agrupado, seletor de cores */
+.logo-ap { flex: none; display: block; border-radius: 10px; box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 40%, transparent), 0 6px 14px color-mix(in srgb, var(--accent) 22%, transparent); }
+.brand { gap: 12px; padding: 4px 6px 10px; border-bottom: 1px solid var(--line); }
+.brand b { font-size: 17px; letter-spacing: .01em; }
+.nav { gap: 14px; }
+.nav-g { display: flex; flex-direction: column; gap: 1px; }
+.nav-gl { font-size: 10.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); padding: 0 10px 4px; }
+.nav button { position: relative; padding: 7px 10px; }
+.nav button.on { background: var(--accent-soft); color: var(--accent-2); }
+.nav button.on::before { content: ""; position: absolute; left: -14px; top: 6px; bottom: 6px; width: 3px; border-radius: 0 3px 3px 0; background: var(--accent); }
+.side { background: color-mix(in srgb, var(--surface) 92%, var(--accent) 8%); }
+.ctx { box-shadow: 0 1px 0 var(--line); }
+.card, .kpi { border-radius: 12px; }
+.card { box-shadow: 0 1px 2px color-mix(in srgb, var(--ink) 5%, transparent); }
+.kpis { grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); }
+.kpi .v { white-space: nowrap; overflow-wrap: normal; font-size: clamp(17px, 1.45vw, 22px); overflow: hidden; text-overflow: ellipsis; }
+.kpi.hl { background: linear-gradient(160deg, var(--accent), var(--accent-2)); }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; margin-top: 14px; }
+.swatch { all: unset; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 6px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); }
+.swatch span { width: 30px; height: 30px; border-radius: 50%; background: var(--sw); box-shadow: inset 0 0 0 2px color-mix(in srgb, #fff 25%, transparent); }
+.swatch small { font-size: 11.5px; color: var(--ink-2); font-weight: 600; }
+.swatch:hover { border-color: var(--line-2); }
+.swatch.on { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+.swatch:focus-visible { outline: 2px solid var(--accent); }
+#tema-picker { width: 40px; height: 32px; padding: 0; border: 1px solid var(--line-2); border-radius: 8px; background: none; cursor: pointer; }
+.tema-prev { display: inline-flex; gap: 10px; align-items: center; margin-left: auto; padding: 6px 10px; border: 1px dashed var(--line-2); border-radius: 10px; }
+@media (max-width: 900px) { .nav-gl { display: none; } .nav-g { flex-direction: row; gap: 4px; } .nav button.on::before { display: none; } .tema-prev { margin-left: 0; } .brand { border-bottom: 0; padding-bottom: 0; } }
+
+/* ---------- marca AF e tipografia Montserrat */
+body { font-size: 13.5px; font-feature-settings: "tnum" 1, "lnum" 1; }
+h1 { font-weight: 700; letter-spacing: -.01em; } h2, h3 { font-weight: 700; letter-spacing: -.005em; } h4 { font-weight: 600; }
+.kpi .v { font-weight: 700; letter-spacing: -.02em; }
+.marca { display: inline-flex; align-items: center; gap: 12px; min-width: 0; }
+.marca-txt { display: inline-flex; flex-direction: column; gap: 4px; line-height: 1; color: var(--ink); }
+.marca-txt b { font-family: 'Montserrat', var(--f-sans); font-weight: 800; font-size: 15px; letter-spacing: .06em; }
+.marca-txt i { display: block; height: 2px; width: 100%; background: #c99a2e; border-radius: 1px; }
+.marca-txt span { font-family: 'Montserrat', var(--f-sans); font-weight: 500; font-size: 12.5px; letter-spacing: .34em; }
+.sb-card .marca-txt b { font-size: 19px; } .sb-card .marca-txt span { font-size: 15.5px; }
+.brand .logo-ap, .sb-card .logo-ap { box-shadow: none; }
 </style>
 <div id="root"><div class="busy"><div><span class="spin"></span> Abrindo Apuração Fiscal…</div></div></div>
 <div id="tip" hidden></div>
@@ -297,6 +337,136 @@ textarea.inp { width: 100%; min-height: 70px; resize: vertical; }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <script>
+/* =========================================================================
+   Aparência: cor principal escolhida pela pessoa (qualquer cor) + modo claro/escuro.
+   A partir de uma cor gera a paleta inteira (fundos, linhas e textos levemente tingidos
+   pela mesma matiz), com contraste garantido nos dois modos.
+   ========================================================================= */
+const TEMA_PRESETS = [
+  ['Marinho', '#12294a'], ['Petróleo', '#0e5e5a'], ['Azul', '#1d5fbf'], ['Índigo', '#4338ca'], ['Violeta', '#7c3aed'],
+  ['Vinho', '#9f1239'], ['Terracota', '#b4471c'], ['Âmbar', '#a16207'], ['Verde', '#15803d'], ['Grafite', '#334155'],
+];
+const TEMA_PADRAO = { cor: '#12294a', modo: 'sistema' };
+const LOGO_OURO = '#c99a2e';
+
+const Tema = {
+  atual: Object.assign({}, TEMA_PADRAO),
+  hexRgb(h) { const m = String(h).replace('#', '').match(/^([0-9a-f]{6}|[0-9a-f]{3})$/i); if (!m) return null; let s = m[1]; if (s.length === 3) s = s.split('').map(c => c + c).join(''); return [0, 2, 4].map(i => parseInt(s.slice(i, i + 2), 16)); },
+  rgbHsl([r, g, b]) { r /= 255; g /= 255; b /= 255; const mx = Math.max(r, g, b), mn = Math.min(r, g, b); let h = 0, s = 0; const l = (mx + mn) / 2; if (mx !== mn) { const d = mx - mn; s = l > .5 ? d / (2 - mx - mn) : d / (mx + mn); h = mx === r ? (g - b) / d + (g < b ? 6 : 0) : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h *= 60; } return [h, s * 100, l * 100]; },
+  hsl(h, s, l) { s = Math.max(0, Math.min(100, s)) / 100; l = Math.max(0, Math.min(100, l)) / 100; const k = n => (n + h / 30) % 12, a = s * Math.min(l, 1 - l); const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1))); return '#' + [f(0), f(8), f(4)].map(x => Math.round(x * 255).toString(16).padStart(2, '0')).join(''); },
+  lum(hex) { const c = this.hexRgb(hex).map(v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }); return .2126 * c[0] + .7152 * c[1] + .0722 * c[2]; },
+  contraste(a, b) { const x = this.lum(a), y = this.lum(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); },
+  escuroEfetivo() {
+    const m = this.atual.modo;
+    if (m === 'escuro') return true; if (m === 'claro') return false;
+    const host = document.documentElement.getAttribute('data-theme');
+    if (host === 'dark') return true; if (host === 'light') return false;
+    return !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+  },
+  /** paleta completa a partir da cor principal */
+  paleta(cor, escuro) {
+    const rgb = this.hexRgb(cor) || this.hexRgb(TEMA_PADRAO.cor);
+    let [h, s, l] = this.rgbHsl(rgb);
+    const neutro = s < 12; const sn = neutro ? 4 : Math.min(18, s * .22 + 4); // tingimento leve dos neutros
+    if (!escuro) {
+      let acc = this.hsl(h, s, Math.min(l, 46));
+      for (let i = 0; i < 20 && this.contraste(acc, '#ffffff') < 4.6; i++) { l = Math.min(l, 46) - 2 * (i + 1); acc = this.hsl(h, s, l); }
+      const al = this.rgbHsl(this.hexRgb(acc))[2];
+      return {
+        '--bg': this.hsl(h, sn, 96.5), '--surface': '#ffffff', '--surface-2': this.hsl(h, sn + 4, 94.5), '--surface-3': this.hsl(h, sn + 2, 90.5),
+        '--ink': this.hsl(h, Math.min(30, sn + 10), 11), '--ink-2': this.hsl(h, sn, 32), '--ink-3': this.hsl(h, sn * .8, 47),
+        '--line': this.hsl(h, sn + 2, 87), '--line-2': this.hsl(h, sn, 80),
+        '--accent': acc, '--accent-2': this.hsl(h, s, Math.max(8, al - 9)), '--accent-ink': '#ffffff', '--accent-soft': this.hsl(h, Math.min(60, s * .6 + 10), 93),
+        '--shadow': '0 1px 2px ' + this.hsl(h, 30, 10) + '10, 0 6px 18px ' + this.hsl(h, 30, 10) + '0d',
+        '--crit': '#c22b2b', '--crit-bg': '#fbe9e8', '--alto': '#c2560a', '--alto-bg': '#fcefe3', '--medio': '#9a7400', '--medio-bg': '#faf3d9', '--baixo': '#56635f', '--baixo-bg': '#edf1ef', '--pend': '#5a49c9', '--pend-bg': '#eeebfb', '--ok': '#18794e', '--ok-bg': '#e3f4ea',
+        '--s-sped': '#2a78d6', '--s-livro': '#eb6834', '--s-xml': '#1baf7a', '--deb': '#eb6834', '--cred': '#2a78d6',
+        'color-scheme': 'light',
+      };
+    }
+    let acc = this.hsl(h, Math.min(s, 75), Math.max(l, 58));
+    const bg = this.hsl(h, sn + 2, 7);
+    for (let i = 0; i < 20 && this.contraste(acc, bg) < 5.5; i++) acc = this.hsl(h, Math.min(s, 75), Math.max(l, 58) + 2 * (i + 1));
+    const al = this.rgbHsl(this.hexRgb(acc))[2];
+    return {
+      '--bg': bg, '--surface': this.hsl(h, sn, 10.5), '--surface-2': this.hsl(h, sn, 13.5), '--surface-3': this.hsl(h, sn, 17.5),
+      '--ink': this.hsl(h, sn * .6, 91), '--ink-2': this.hsl(h, sn * .5, 70), '--ink-3': this.hsl(h, sn * .5, 54),
+      '--line': this.hsl(h, sn, 18.5), '--line-2': this.hsl(h, sn, 25),
+      '--accent': acc, '--accent-2': this.hsl(h, Math.min(s, 70), Math.min(88, al + 12)), '--accent-ink': this.hsl(h, 40, 8), '--accent-soft': this.hsl(h, Math.min(45, s * .5), 16),
+      '--shadow': '0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25)',
+      '--crit': '#f07272', '--crit-bg': '#3a1a1a', '--alto': '#f29453', '--alto-bg': '#3a2414', '--medio': '#e1b948', '--medio-bg': '#342c12', '--baixo': '#a6b5b1', '--baixo-bg': '#1f2a27', '--pend': '#a198ee', '--pend-bg': '#25213f', '--ok': '#5bc78d', '--ok-bg': '#15301f',
+      '--s-sped': '#3987e5', '--s-livro': '#d95926', '--s-xml': '#199e70', '--deb': '#d95926', '--cred': '#3987e5',
+      'color-scheme': 'dark',
+    };
+  },
+  aplicar() {
+    const esc = this.escuroEfetivo();
+    const p = this.paleta(this.atual.cor, esc);
+    const st = document.documentElement.style;
+    Object.entries(p).forEach(([k, v]) => st.setProperty(k, v));
+    document.documentElement.classList.toggle('tema-escuro', esc);
+    this.favicon(p['--accent'], p['--accent-ink']);
+  },
+  favicon(bg, fg) {
+    try {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" rx="22" fill="${bg}"/><path d="M20 98 L69 28" fill="none" stroke="${fg}" stroke-width="9"/><path d="M70 98 V26 H102" fill="none" stroke="${fg}" stroke-width="9" stroke-linejoin="miter"/><path d="M45 62 H96" fill="none" stroke="${LOGO_OURO}" stroke-width="9"/></svg>`;
+      let l = document.querySelector('link[rel="icon"]'); if (!l) { l = document.createElement('link'); l.rel = 'icon'; document.head.appendChild(l); }
+      l.href = 'data:image/svg+xml,' + encodeURIComponent(svg);
+    } catch (e) { }
+  },
+  carregarLocal() { try { const t = JSON.parse(localStorage.getItem('af-tema') || 'null'); if (t && this.hexRgb(t.cor)) this.atual = Object.assign({}, TEMA_PADRAO, t); } catch (e) { } },
+  definir(parcial, gravar) {
+    Object.assign(this.atual, parcial);
+    try { localStorage.setItem('af-tema', JSON.stringify(this.atual)); } catch (e) { }
+    this.aplicar();
+    if (gravar && typeof Store !== 'undefined' && Store.podeEscrever && Store.mode !== 'iniciando') { clearTimeout(this._t); this._t = setTimeout(() => Store.set('config/aparencia', this.atual).catch(() => { }), 600); }
+  },
+  async carregarConta() { try { const t = await Store.get('config/aparencia'); if (t && this.hexRgb(t.cor)) { this.atual = Object.assign({}, TEMA_PADRAO, t); try { localStorage.setItem('af-tema', JSON.stringify(this.atual)); } catch (e) { } this.aplicar(); } } catch (e) { } },
+};
+Tema.carregarLocal(); Tema.aplicar();
+try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => Tema.aplicar()); } catch (e) { }
+try { new MutationObserver(() => Tema.aplicar()).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] }); } catch (e) { }
+
+/** monograma AF (Apuração Fiscal): quadro na cor principal, traços na cor do texto sobre ela, barra dourada */
+function logoAP(tam) {
+  tam = tam || 36;
+  return `<svg class="logo-ap" width="${tam}" height="${tam}" viewBox="0 0 120 120" role="img" aria-label="Apuração Fiscal"><rect width="120" height="120" rx="22" fill="var(--accent)"/><path d="M20 98 L69 28" fill="none" stroke="var(--accent-ink)" stroke-width="9"/><path d="M70 98 V26 H102" fill="none" stroke="var(--accent-ink)" stroke-width="9" stroke-linejoin="miter"/><path d="M45 62 H96" fill="none" stroke="${LOGO_OURO}" stroke-width="9"/></svg>`;
+}
+/** marca completa: monograma + APURAÇÃO / filete dourado / F I S C A L */
+function marcaAF(tam) {
+  return `<span class="marca">${logoAP(tam || 40)}<span class="marca-txt"><b>APURAÇÃO</b><i></i><span>FISCAL</span></span></span>`;
+}
+
+function aparenciaCard() {
+  const t = Tema.atual;
+  const sw = TEMA_PRESETS.map(([n, c]) => `<button class="swatch ${c.toLowerCase() === t.cor.toLowerCase() ? 'on' : ''}" data-act="tema-cor" data-v="${c}" style="--sw:${c}" title="${n}" aria-label="${n}"><span></span><small>${n}</small></button>`).join('');
+  const modo = (v, l) => `<button class="seg ${t.modo === v ? 'on' : ''}" data-act="tema-modo" data-v="${v}">${l}</button>`;
+  return `<section class="card" style="margin-bottom:16px"><div class="hrow"><div><h3>Aparência</h3><p class="muted" style="font-size:12.5px;margin-top:2px">Escolha a cor principal do app (qualquer cor) e o modo. O restante da paleta se ajusta sozinho, com contraste legível.</p></div>
+    <div class="segs">${modo('sistema', 'Automático')}${modo('claro', 'Claro')}${modo('escuro', 'Escuro')}</div></div>
+    <div class="swatches">${sw}</div>
+    <div class="row gap12 wrap aic" style="margin-top:14px">
+      <label class="row gap8 aic"><span class="lbl" style="margin:0">Outra cor</span><input type="color" id="tema-picker" value="${t.cor}" aria-label="Escolher cor"></label>
+      <input class="inp mono" id="tema-hex" value="${t.cor}" maxlength="7" style="width:96px" aria-label="Código da cor">
+      <button class="btn sm ghost" data-act="tema-reset">Restaurar padrão</button>
+      <span class="tema-prev">${logoAP(28)}<span class="btn primary sm" style="pointer-events:none">Botão</span><span class="chip ok">confere</span><span class="chip bad">divergente</span></span>
+    </div></section>`;
+}
+document.addEventListener('click', ev => {
+  const el = ev.target.closest && ev.target.closest('[data-act^="tema-"]'); if (!el) return;
+  const a = el.dataset.act;
+  if (a === 'tema-cor') Tema.definir({ cor: el.dataset.v }, true);
+  else if (a === 'tema-modo') Tema.definir({ modo: el.dataset.v }, true);
+  else if (a === 'tema-reset') Tema.definir(Object.assign({}, TEMA_PADRAO), true);
+  if (typeof App !== 'undefined') { App._keepScroll = true; App.render(); }
+});
+document.addEventListener('input', ev => {
+  const t = ev.target;
+  if (t.id === 'tema-picker') { Tema.definir({ cor: t.value }, true); const hx = document.getElementById('tema-hex'); if (hx) hx.value = t.value; }
+});
+document.addEventListener('change', ev => {
+  const t = ev.target;
+  if (t.id === 'tema-hex') { let v = t.value.trim(); if (!v.startsWith('#')) v = '#' + v; if (Tema.hexRgb(v)) { Tema.definir({ cor: v.toLowerCase() }, true); App._keepScroll = true; App.render(); } else t.value = Tema.atual.cor; }
+  if (t.id === 'tema-picker') { App._keepScroll = true; App.render(); }
+});
 /* =========================================================================
    APURAÇÃO FISCAL — núcleo (utilidades, leitores de arquivos, motores)
    Funções puras: não acessam DOM (exceto parseXml, que usa DOMParser)
@@ -1879,7 +2049,7 @@ const SB = {
       el.className = 'sb-login';
       let modo = 'entrar';
       el.innerHTML = `<form class="card sb-card" id="sb-form" novalidate>
-        <div class="row gap12 aic"><span class="sb-logo">AF</span><div><h2 style="margin:0">Apuração Fiscal</h2><p class="muted" id="sb-sub" style="margin:2px 0 0;font-size:12.5px">Entre na sua conta para ver suas apurações</p></div></div>
+        <div class="col gap12">${marcaAF(52)}<p class="muted" id="sb-sub" style="margin:4px 0 0;font-size:12.5px">Entre na sua conta para ver suas apurações</p></div>
         <div class="sb-tabs" role="tablist"><button type="button" class="on" data-m="entrar">Entrar</button><button type="button" data-m="criar">Criar conta</button></div>
         <label class="col gap4" style="margin-top:14px"><span class="lbl">E-mail</span><input class="inp" id="sb-email" type="email" autocomplete="username" required></label>
         <label class="col gap4" style="margin-top:10px"><span class="lbl">Senha</span><input class="inp" id="sb-senha" type="password" autocomplete="current-password" required></label>
@@ -2316,6 +2486,7 @@ const App = {
   // ------------------------------------------------------------------ inicialização
   async start() {
     await Store.init();
+    await Tema.carregarConta();
     try { this.isOwner = Store.user ? !!(await Store.user.isOwner()) : true; } catch (e) { this.isOwner = false; }
     try { const c = await Store.get('config/geral'); if (c) Object.assign(this.cfg, c); } catch (e) { }
     await this.carregarEmpresas();
@@ -3561,8 +3732,10 @@ App._render = function () {
 };
 function sideBar() {
   const modo = { supabase: ['nuvem', 'Supabase · ' + (Store.me.name || '')], nuvem: ['nuvem', 'Banco na nuvem · compartilhado'], local: ['local', 'Somente neste navegador'], memoria: ['memoria', 'Sem armazenamento (temporário)'], iniciando: ['', 'Conectando…'] }[Store.mode] || ['', Store.mode];
-  return `<aside class="side"><div class="brand"><div class="mark">AF</div><div><b>APURAÇÃO FISCAL</b><small>Auditoria · conciliação · inteligência fiscal</small></div></div>
-  <nav class="nav" aria-label="Menu">${NAV.map(([k, l], i) => `<button class="${App.view === k ? 'on' : ''}" data-act="nav" data-v="${k}"><span class="ix">${String(i + 1).padStart(2, '0')}</span>${l}</button>`).join('')}</nav>
+  const grupos = [['Início', ['visao']], ['Cadastros', ['empresas', 'competencias', 'importacao']], ['Apurações', ['apuracao', 'iss', 'difal']], ['Análises', ['conciliacao', 'auditoria', 'evolucao', 'relatorios']], ['Sistema', ['config']]];
+  const rot = Object.fromEntries(NAV);
+  return `<aside class="side"><div class="brand">${marcaAF(42)}</div>
+  <nav class="nav" aria-label="Menu">${grupos.map(([g, ks]) => `<div class="nav-g"><span class="nav-gl">${g}</span>${ks.filter(k => rot[k]).map(k => `<button class="${App.view === k ? 'on' : ''}" data-act="nav" data-v="${k}">${rot[k]}</button>`).join('')}</div>`).join('')}</nav>
   <div class="foot"><span class="storage ${modo[0]}">${modo[1]}</span>${Store.podeEscrever ? '' : '<span>Acesso somente leitura</span>'}<span>Leiaute EFD ICMS/IPI até 020 (2026)</span></div></aside>`;
 }
 function ctxBar() {
@@ -4038,7 +4211,7 @@ Views.config = function () {
       <label>Materialidade para risco alto (R$)<input class="inp" id="cfg-alta" type="number" step="1" min="0" value="${c.matAlta}"></label>
       <label>Materialidade para risco crítico (R$)<input class="inp" id="cfg-crit" type="number" step="1" min="0" value="${c.matCritica}"></label></div>
       <div style="margin-top:12px"><button class="btn primary" data-act="cfg-salvar" ${Store.podeEscrever ? '' : 'disabled'}>${I.save} Salvar parâmetros</button></div></section>
-    ${sbMigracaoCard()}<div class="grid2"><section class="card"><h3>Armazenamento e acesso</h3><dl class="kv" style="margin-top:10px"><dt>Modo</dt><dd>${Store.mode === 'supabase' ? 'Supabase (' + U.esc(SB_CFG.url.replace(/^https:\/\//, '')) + ') — compartilhado com os usuários cadastrados <button class="btn sm" data-act="sb-sair" style="margin-left:8px">Sair</button>' : Store.mode === 'nuvem' ? 'Banco do app na nuvem, compartilhado com quem tem acesso ao app' : Store.mode === 'local' && typeof SB !== 'undefined' && !window.claude && SB_CFG.url ? 'Somente neste navegador <button class="btn sm" data-act="sb-conectar" style="margin-left:8px">Conectar ao Supabase</button>' : Store.mode === 'local' ? 'Somente neste navegador (IndexedDB) — abra o app publicado para usar o banco compartilhado' : 'Temporário (sem armazenamento disponível)'}</dd><dt>Usuário</dt><dd>${U.esc(Store.me.name || '—')}</dd><dt>Escrita</dt><dd>${Store.podeEscrever ? 'permitida' : 'somente leitura'}</dd><dt>Guarda de originais</dt><dd>${Store.mode === 'supabase' ? 'Supabase Storage (bucket privado "' + SB_CFG.bucket + '")' : Store.mode === 'nuvem' ? (Store.podeEnviar ? 'sim (editores)' : 'não — acesso sem edição') : 'neste navegador'}</dd></dl>
+    ${aparenciaCard()}${sbMigracaoCard()}<div class="grid2"><section class="card"><h3>Armazenamento e acesso</h3><dl class="kv" style="margin-top:10px"><dt>Modo</dt><dd>${Store.mode === 'supabase' ? 'Supabase (' + U.esc(SB_CFG.url.replace(/^https:\/\//, '')) + ') — compartilhado com os usuários cadastrados <button class="btn sm" data-act="sb-sair" style="margin-left:8px">Sair</button>' : Store.mode === 'nuvem' ? 'Banco do app na nuvem, compartilhado com quem tem acesso ao app' : Store.mode === 'local' && typeof SB !== 'undefined' && !window.claude && SB_CFG.url ? 'Somente neste navegador <button class="btn sm" data-act="sb-conectar" style="margin-left:8px">Conectar ao Supabase</button>' : Store.mode === 'local' ? 'Somente neste navegador (IndexedDB) — abra o app publicado para usar o banco compartilhado' : 'Temporário (sem armazenamento disponível)'}</dd><dt>Usuário</dt><dd>${U.esc(Store.me.name || '—')}</dd><dt>Escrita</dt><dd>${Store.podeEscrever ? 'permitida' : 'somente leitura'}</dd><dt>Guarda de originais</dt><dd>${Store.mode === 'supabase' ? 'Supabase Storage (bucket privado "' + SB_CFG.bucket + '")' : Store.mode === 'nuvem' ? (Store.podeEnviar ? 'sim (editores)' : 'não — acesso sem edição') : 'neste navegador'}</dd></dl>
       <p class="note">A autenticação é a da sua conta: só abre o app quem recebeu o compartilhamento. Cada ação fica na trilha com o usuário. A restrição por empresa (no cadastro) controla o que cada pessoa vê na interface.</p>
       <div class="row gap8 wrap" style="margin-top:12px"><button class="btn" data-act="backup">${I.save} Cópia de segurança (JSON)</button></div></section>
     <section class="card"><h3>Leiaute da EFD ICMS/IPI</h3><div class="tblwrap" style="margin-top:8px"><table class="tbl dense"><thead><tr><th>COD_VER</th><th>Vigência</th></tr></thead><tbody>${Object.entries(LEIAUTE.versoes).reverse().map(([k, v]) => `<tr><td class="mono">${k}</td><td>${v[0]}</td></tr>`).join('')}</tbody></table></div><p class="note">Registros analíticos lidos: ${Object.keys(LEIAUTE.analiticos).join(', ')}. Registros fora do catálogo são sinalizados como "não interpretados", nunca descartados em silêncio.</p></section></div>
@@ -4191,7 +4364,7 @@ document.addEventListener('change', async (ev) => {
   const t = ev.target;
   if (t.dataset.ch === 'emp') { if (t.value) { await App.abrirEmpresa(t.value); } else { App.eid = null; App.comps = []; App.comp = null; } App._grupo = null; App.render(); return; }
   if (t.dataset.ch === 'comp') return App.trocarComp(t.value);
-  if (t.dataset.up === 'iss' || t.dataset.issTipo || t.dataset.ob || /^(ob|migr)-/.test(t.id)) return;
+  if (t.dataset.up === 'iss' || t.dataset.issTipo || t.dataset.ob || /^(ob|migr|tema)-/.test(t.id)) return;
   if (t.dataset.up) { const files = [...t.files]; t.value = ''; if (!files.length) return; return upload(t.dataset.up, files); }
   if (t.dataset.f && App.form) { App.form[t.dataset.f] = t.value; if (t.dataset.f === 'cnpj') { const c = U.digits(t.value); if (c.length === 14 && U.cnpjValido(c) && !App.form.razao && !(App.cnpjBusca && App.cnpjBusca.cnpj === c)) return App.consultarCnpj(); App.render(); } return; }
   if (t.id === 'forcar-dup' && App.imp) { App.imp.forcarDup = t.checked; return; }
